@@ -1,0 +1,33 @@
+server:
+    port: 10080
+
+spring:
+    application:
+        name: Rogue Business Intelligence API
+    datasource:
+        url: jdbc:postgresql://db.roguedev.local/roguebi
+        username: rogueadmin
+        password: Cash8Aes
+        hikari:
+            minimum-idle: 20
+    jpa:
+        hibernate:
+            ddl-auto: update
+    security:
+        oauth2:
+            client:
+                registration:
+                    keycloak:
+                        client-id: roguebi-api
+                        authorization-grant-type: authorization_code
+                        scope: openid
+
+                provider:
+                    keycloak:
+                        issuer-uri: http://localhost:8081/realms/roguebi
+                        user-name-attribute: preferred_username
+
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:8081/realms/roguebi
+
